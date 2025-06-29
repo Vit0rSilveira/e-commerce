@@ -1,0 +1,14 @@
+{
+  "name": "e-commerce-backend",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "dev": "tsc --watch ./src/server.ts --outDir dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
