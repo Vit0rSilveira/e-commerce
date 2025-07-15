@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config";
 
 import { handleErrorMiddleware } from "./middlewares/handleErrorMiddleware";
 import { router } from "./router";
