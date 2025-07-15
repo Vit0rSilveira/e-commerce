@@ -11,12 +11,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.3",
     "prisma": "^6.11.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
-    "express": "^5.1.0"
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "zod": "^4.0.5"
   }
 }

@@ -1,10 +1,13 @@
-import { Router } from 'express';
-import { Request, Response } from 'express';
+import { type Request, type Response, Router } from "express";
+
+import { RegisterUserController } from "./controllers/RegisterUserController";
 
 const router = Router();
 
-router.get('/', (_: Request, res: Response) => {
-    res.send('Welcome to the API!');
+const registerUserController = new RegisterUserController();
+
+router.post("/api/user", async (req: Request, res: Response) => {
+	await registerUserController.handle(req, res);
 });
 
 export { router };
