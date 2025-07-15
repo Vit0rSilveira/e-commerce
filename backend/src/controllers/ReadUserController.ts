@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-
+import { ApiError } from "../helpers/ApiError";
 import type { IUseCase } from "../useCases/IUseCase";
 import { ReadUserUseCase } from "../useCases/ReadUserUseCase";
 
@@ -10,7 +10,7 @@ class ReadUserController {
 		const id = req.userId;
 
 		if (!id) {
-			return res.status(400).json({ error: "Invalid input" });
+			throw new ApiError(401, "Unauthorized");
 		}
 
 		const result = await this.readUserUseCase.execute({ id });

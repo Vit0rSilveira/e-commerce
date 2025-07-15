@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { z } from "zod";
-
+import { ApiError } from "../helpers/ApiError";
 import type { IUseCase } from "../useCases/IUseCase";
 import { LoginUserUseCase } from "../useCases/LoginUserUseCase";
 
@@ -16,7 +16,7 @@ class LoginUserController {
 		const data = dataModel.safeParse(req.body);
 
 		if (!data.success) {
-			return res.status(400).json({ error: "Invalid input" });
+			throw new ApiError(400, "Invalid input");
 		}
 
 		const result = await this.loginUserUseCase.execute(data.data);

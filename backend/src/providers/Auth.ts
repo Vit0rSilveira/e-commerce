@@ -16,10 +16,7 @@ class Auth implements IAuth {
 	getData(token: string): string | null {
 		try {
 			return (
-				jwt.verify(
-					token,
-					process.env.AUTH_SECRET as string,
-				) as IJWTPayload
+				jwt.verify(token, process.env.AUTH_SECRET as string) as IJWTPayload
 			).id;
 		} catch {
 			return null;
