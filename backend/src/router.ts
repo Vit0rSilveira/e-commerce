@@ -2,6 +2,7 @@ import { type Request, type Response, Router } from "express";
 import { LoginUserController } from "./controllers/LoginUserController";
 import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterUserController } from "./controllers/RegisterUserController";
+import { UpdateUserController } from "./controllers/UpdateUserController";
 
 import { ensureAuthenticatedMiddleware } from "./middlewares/ensureAuthenticatedMiddleware";
 
@@ -10,6 +11,7 @@ const router = Router();
 const registerUserController = new RegisterUserController();
 const loginUserController = new LoginUserController();
 const readUserController = new ReadUserController();
+const updateUserController = new UpdateUserController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -24,6 +26,14 @@ router.get(
 	ensureAuthenticatedMiddleware,
 	async (req: Request, res: Response) => {
 		await readUserController.handle(req, res);
+	},
+);
+
+router.put(
+	"/api/user",
+	ensureAuthenticatedMiddleware,
+	async (req: Request, res: Response) => {
+		await updateUserController.handle(req, res);
 	},
 );
 

@@ -28,6 +28,18 @@ class UserRepository implements IUserRepository {
 			},
 		});
 	}
+
+	async update(user: any): Promise<any> {
+		return db.user.update({
+			where: {
+				id: user.id,
+			},
+			data: {
+				...user,
+				updated_at: new Date(),
+			},
+		});
+	}
 }
 
 export { UserRepository };
