@@ -10,6 +10,14 @@ class UserRepository implements IUserRepository {
 		});
 	}
 
+	async findById(id: string): Promise<any> {
+		return db.user.findFirst({
+			where: {
+				id: id,
+			},
+		});
+	}
+
 	async create(user: any): Promise<any> {
 		return db.user.create({
 			data: {
