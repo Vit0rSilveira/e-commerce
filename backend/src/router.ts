@@ -3,6 +3,7 @@ import { LoginUserController } from "./controllers/LoginUserController";
 import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterUserController } from "./controllers/RegisterUserController";
 import { UpdateUserController } from "./controllers/UpdateUserController";
+import { UpdatePasswordController } from "./controllers/UpdatePasswordController";
 
 import { ensureAuthenticatedMiddleware } from "./middlewares/ensureAuthenticatedMiddleware";
 
@@ -12,6 +13,7 @@ const registerUserController = new RegisterUserController();
 const loginUserController = new LoginUserController();
 const readUserController = new ReadUserController();
 const updateUserController = new UpdateUserController();
+const updatePasswordController = new UpdatePasswordController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -36,5 +38,13 @@ router.put(
 		await updateUserController.handle(req, res);
 	},
 );
+
+router.put(
+    "/api/user/password",
+    ensureAuthenticatedMiddleware,
+    async (req: Request, res: Response) => {
+        await updatePasswordController.handle(req, res);
+    },
+)
 
 export { router };
