@@ -23,6 +23,12 @@ class UpdateUserService {
 		}
 
 		if (data.email) {
+            const emailInUse = await this.userRepository.findByEmail(data.email);
+
+            if(emailInUse) {
+                throw new ApiError(400, "Email already in use");
+            }
+
 			user.email = data.email;
 		}
 
