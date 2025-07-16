@@ -10,7 +10,9 @@ const dataModel = z.object({
 });
 
 class UpdatePasswordController {
-	constructor(private updatePasswordUseCase: IUseCase = new UpdatePasswordUseCase()) {}
+	constructor(
+		private updatePasswordUseCase: IUseCase = new UpdatePasswordUseCase(),
+	) {}
 
 	async handle(req: Request, res: Response) {
 		const data = dataModel.safeParse(req.body);

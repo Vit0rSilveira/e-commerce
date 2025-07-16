@@ -1,39 +1,39 @@
 import { ApiError } from "../helpers/ApiError";
-import type { IUserRepository } from "../repositories/IUserRepository";
-import type { IEncryption } from "../providers/IEncryption";
-import { UserRepository } from "../repositories/UserRepository";
 import { Encryption } from "../providers/Encryption";
+import type { IEncryption } from "../providers/IEncryption";
+import type { IUserRepository } from "../repositories/IUserRepository";
+import { UserRepository } from "../repositories/UserRepository";
 
 class DTO {
-    id: string;
+	id: string;
 	old_password: string;
-    new_password: string;
+	new_password: string;
 }
 
 class UpdatePasswordService {
 	constructor(
-        private userRepository: IUserRepository = new UserRepository(),
-        private encryption: IEncryption = new Encryption()
-    ) {}
+		private userRepository: IUserRepository = new UserRepository(),
+		private encryption: IEncryption = new Encryption(),
+	) {}
 
 	async execute(data: DTO): Promise<any> {
-        const user = await this.userRepository.findById(data.id);
+		const user = await this.userRepository.findById(data.id);
 
-        if (!user) {
-            throw new ApiError(404, "User not found");
-        }
+		if (!user) {
+			throw new ApiError(404, "User not found");
+		}
 
-        if(!(await this.encryption.compare(data.old_password, user.password))) {
-            throw new ApiError(401, "Invalid password");
-        }
+		if (!(await this.encryption.compare(data.old_password, user.password))) {
+			throw new ApiError(401, "Invalid password");
+		}
 
-        user.password = await this.encryption.encrypt(data.new_password);
+		user.password = await this.encryption.encrypt(data.new_password);
 
-        await this.userRepository.update(user);
+		await this.userRepository.update(user);
 
-        return {
-            message: "Password updated successfully",
-        };
+		return {
+			message: "Password updated successfully",
+		};
 	}
 }
 
