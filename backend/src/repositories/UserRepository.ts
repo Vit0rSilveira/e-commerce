@@ -40,6 +40,14 @@ class UserRepository implements IUserRepository {
 			},
 		});
 	}
+
+	async delete(user: any): Promise<any> {
+		return db.user.delete({
+			where: {
+				id: user.id,
+			},
+		});
+	}
 }
 
 export { UserRepository };

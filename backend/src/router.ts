@@ -1,9 +1,10 @@
 import { type Request, type Response, Router } from "express";
+import { DeleteUserController } from "./controllers/DeleteUserController";
 import { LoginUserController } from "./controllers/LoginUserController";
 import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterUserController } from "./controllers/RegisterUserController";
-import { UpdateUserController } from "./controllers/UpdateUserController";
 import { UpdatePasswordController } from "./controllers/UpdatePasswordController";
+import { UpdateUserController } from "./controllers/UpdateUserController";
 
 import { ensureAuthenticatedMiddleware } from "./middlewares/ensureAuthenticatedMiddleware";
 
@@ -14,6 +15,7 @@ const loginUserController = new LoginUserController();
 const readUserController = new ReadUserController();
 const updateUserController = new UpdateUserController();
 const updatePasswordController = new UpdatePasswordController();
+const deleteUserController = new DeleteUserController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -40,11 +42,19 @@ router.put(
 );
 
 router.put(
-    "/api/user/password",
-    ensureAuthenticatedMiddleware,
-    async (req: Request, res: Response) => {
-        await updatePasswordController.handle(req, res);
-    },
-)
+	"/api/user/password",
+	ensureAuthenticatedMiddleware,
+	async (req: Request, res: Response) => {
+		await updatePasswordController.handle(req, res);
+	},
+);
+
+router.delete(
+	"/api/user",
+	ensureAuthenticatedMiddleware,
+	async (req: Request, res: Response) => {
+		await deleteUserController.handle(req, res);
+	},
+);
 
 export { router };
