@@ -10,6 +10,10 @@ class ProductRepository implements IProductRepository {
 		});
 	}
 
+	async findAll(): Promise<any> {
+		return db.product.findMany();
+	}
+
 	async create(product: any): Promise<any> {
 		return db.product.create({
 			data: {

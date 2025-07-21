@@ -1,5 +1,6 @@
 import { type Request, type Response, Router } from "express";
 import { DeleteUserController } from "./controllers/DeleteUserController";
+import { ListProductsController } from "./controllers/ListProductsController";
 import { LoginUserController } from "./controllers/LoginUserController";
 import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterProductController } from "./controllers/RegisterProductController";
@@ -18,6 +19,7 @@ const readUserController = new ReadUserController();
 const updateUserController = new UpdateUserController();
 const updatePasswordController = new UpdatePasswordController();
 const deleteUserController = new DeleteUserController();
+const listProductsController = new ListProductsController();
 const registerProductController = new RegisterProductController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
@@ -59,6 +61,10 @@ router.delete(
 		await deleteUserController.handle(req, res);
 	},
 );
+
+router.get("/api/products", async (req: Request, res: Response) => {
+	await listProductsController.handle(req, res);
+});
 
 router.post(
 	"/api/products",
