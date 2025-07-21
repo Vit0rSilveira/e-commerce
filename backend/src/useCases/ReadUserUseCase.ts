@@ -3,10 +3,10 @@ import { type DTO, ReadUserService } from "../services/ReadUserService";
 import type { IUseCase } from "./IUseCase";
 
 class ReadUserUseCase implements IUseCase {
-	constructor(private readUseService: IService = new ReadUserService()) {}
+	constructor(private readUserService: IService = new ReadUserService()) {}
 
 	async execute(data: DTO): Promise<any> {
-		const result = await this.readUseService.execute(data);
+		const result = await this.readUserService.execute(data);
 
 		return result;
 	}
