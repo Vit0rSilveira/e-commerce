@@ -1,4 +1,3 @@
-import { ApiError } from "../helpers/ApiError";
 import type { IProductRepository } from "../repositories/IProductRepository";
 import { ProductRepository } from "../repositories/ProductRepository";
 
@@ -25,10 +24,6 @@ class CreateProductService {
 			price: data.price,
 			stock: data.stock,
 		});
-
-		if (!product) {
-			throw new ApiError(500, "Internal server error");
-		}
 
 		return {
 			id: product.id,

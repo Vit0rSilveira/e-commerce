@@ -1,4 +1,3 @@
-import { ApiError } from "../helpers/ApiError";
 import type { IProductRepository } from "../repositories/IProductRepository";
 import { ProductRepository } from "../repositories/ProductRepository";
 
@@ -13,10 +12,6 @@ class ListProductsService {
 
 	async execute(_data: DTO): Promise<any> {
 		const products = await this.productRepository.findAll();
-
-		if (!products) {
-			throw new ApiError(500, "Internal Server Error");
-		}
 
 		return products;
 	}
