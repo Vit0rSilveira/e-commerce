@@ -14,6 +14,44 @@ class ProductRepository implements IProductRepository {
 		return db.product.findMany();
 	}
 
+	async search(data: any): Promise<any> {
+		return db.product.findMany({
+			where: {
+				AND: [
+					{
+						OR: [
+							{
+								title: {
+									contains: data.search,
+									mode: "insensitive",
+								},
+							},
+							{
+								description: {
+									contains: data.search,
+									mode: "insensitive",
+								},
+							},
+						],
+					},
+					{
+						specifications: {
+							hasEvery: data.specifications ?? [],
+						},
+					},
+					{
+						price: {
+							gte: data.min_price ?? 0,
+							lte: data.max_price ?? 100000,
+						},
+					},
+				],
+			},
+			take: data.page * 20,
+			skip: (data.page - 1) * 20,
+		});
+	}
+
 	async create(product: any): Promise<any> {
 		return db.product.create({
 			data: {

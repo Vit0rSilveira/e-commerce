@@ -7,6 +7,7 @@ import { ReadProductController } from "./controllers/ReadProductController";
 import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterProductController } from "./controllers/RegisterProductController";
 import { RegisterUserController } from "./controllers/RegisterUserController";
+import { SearchProductsController } from "./controllers/SearchProductsController";
 import { UpdatePasswordController } from "./controllers/UpdatePasswordController";
 import { UpdateProductController } from "./controllers/UpdateProductController";
 import { UpdateUserController } from "./controllers/UpdateUserController";
@@ -27,6 +28,7 @@ const registerProductController = new RegisterProductController();
 const readProductController = new ReadProductController();
 const updateProductController = new UpdateProductController();
 const deleteProductController = new DeleteProductController();
+const searchProductsController = new SearchProductsController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -67,6 +69,10 @@ router.delete(
 		await deleteUserController.handle(req, res);
 	},
 );
+
+router.post("/api/products/search", async (req: Request, res: Response) => {
+	await searchProductsController.handle(req, res);
+});
 
 router.get("/api/products", async (req: Request, res: Response) => {
 	await listProductsController.handle(req, res);
