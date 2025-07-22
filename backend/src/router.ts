@@ -7,6 +7,7 @@ import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterProductController } from "./controllers/RegisterProductController";
 import { RegisterUserController } from "./controllers/RegisterUserController";
 import { UpdatePasswordController } from "./controllers/UpdatePasswordController";
+import { UpdateProductController } from "./controllers/UpdateProductController";
 import { UpdateUserController } from "./controllers/UpdateUserController";
 
 import { ensureAuthenticatedMiddleware } from "./middlewares/ensureAuthenticatedMiddleware";
@@ -23,6 +24,7 @@ const deleteUserController = new DeleteUserController();
 const listProductsController = new ListProductsController();
 const registerProductController = new RegisterProductController();
 const readProductController = new ReadProductController();
+const updateProductController = new UpdateProductController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -78,6 +80,15 @@ router.post(
 	ensureIsAdminMiddleware,
 	async (req: Request, res: Response) => {
 		await registerProductController.handle(req, res);
+	},
+);
+
+router.put(
+	"/api/products/:id",
+	ensureAuthenticatedMiddleware,
+	ensureIsAdminMiddleware,
+	async (req: Request, res: Response) => {
+		await updateProductController.handle(req, res);
 	},
 );
 
