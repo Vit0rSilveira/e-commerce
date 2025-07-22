@@ -1,4 +1,5 @@
 import { type Request, type Response, Router } from "express";
+import { DeleteProductController } from "./controllers/DeleteProductController";
 import { DeleteUserController } from "./controllers/DeleteUserController";
 import { ListProductsController } from "./controllers/ListProductsController";
 import { LoginUserController } from "./controllers/LoginUserController";
@@ -25,6 +26,7 @@ const listProductsController = new ListProductsController();
 const registerProductController = new RegisterProductController();
 const readProductController = new ReadProductController();
 const updateProductController = new UpdateProductController();
+const deleteProductController = new DeleteProductController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -89,6 +91,15 @@ router.put(
 	ensureIsAdminMiddleware,
 	async (req: Request, res: Response) => {
 		await updateProductController.handle(req, res);
+	},
+);
+
+router.delete(
+	"/api/products/:id",
+	ensureAuthenticatedMiddleware,
+	ensureIsAdminMiddleware,
+	async (req: Request, res: Response) => {
+		await deleteProductController.handle(req, res);
 	},
 );
 
