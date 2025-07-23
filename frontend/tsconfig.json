@@ -5,15 +5,15 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-      "target": "es2021",
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "strict": true,
-      "skipLibCheck": true,
-      "outDir": "dist",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "strictPropertyInitialization": false,
+    "target": "es2021",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   }
 }
