@@ -1,4 +1,5 @@
 import { type Request, type Response, Router } from "express";
+import { AddToCartController } from "./controllers/AddToCartController";
 import { DeleteProductController } from "./controllers/DeleteProductController";
 import { DeleteUserController } from "./controllers/DeleteUserController";
 import { ListProductsController } from "./controllers/ListProductsController";
@@ -29,6 +30,7 @@ const readProductController = new ReadProductController();
 const updateProductController = new UpdateProductController();
 const deleteProductController = new DeleteProductController();
 const searchProductsController = new SearchProductsController();
+const addToCartController = new AddToCartController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -106,6 +108,14 @@ router.delete(
 	ensureIsAdminMiddleware,
 	async (req: Request, res: Response) => {
 		await deleteProductController.handle(req, res);
+	},
+);
+
+router.post(
+	"/api/cart",
+	ensureAuthenticatedMiddleware,
+	async (req: Request, res: Response) => {
+		await addToCartController.handle(req, res);
 	},
 );
 
