@@ -14,6 +14,14 @@ class CartRepository implements ICartRepository {
 		});
 	}
 
+	async findByUserId(userId: string): Promise<any> {
+		return db.cart.findMany({
+			where: {
+				user_id: userId,
+			},
+		});
+	}
+
 	async create(cart: any): Promise<any> {
 		return db.cart.create({
 			data: {
