@@ -44,6 +44,17 @@ class CartRepository implements ICartRepository {
 			},
 		});
 	}
+
+	async remove(cart: any): Promise<any> {
+		return db.cart.delete({
+			where: {
+				user_id_product_id: {
+					user_id: cart.user_id,
+					product_id: cart.product_id,
+				},
+			},
+		});
+	}
 }
 
 export { CartRepository };
