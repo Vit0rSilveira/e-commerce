@@ -10,6 +10,7 @@ import { ReadUserController } from "./controllers/ReadUserController";
 import { RegisterProductController } from "./controllers/RegisterProductController";
 import { RegisterUserController } from "./controllers/RegisterUserController";
 import { SearchProductsController } from "./controllers/SearchProductsController";
+import { UpdateCartController } from "./controllers/UpdateCartController";
 import { UpdatePasswordController } from "./controllers/UpdatePasswordController";
 import { UpdateProductController } from "./controllers/UpdateProductController";
 import { UpdateUserController } from "./controllers/UpdateUserController";
@@ -33,6 +34,7 @@ const deleteProductController = new DeleteProductController();
 const searchProductsController = new SearchProductsController();
 const addToCartController = new AddToCartController();
 const getCartController = new GetCartController();
+const updateCartController = new UpdateCartController();
 
 router.post("/api/user", async (req: Request, res: Response) => {
 	await registerUserController.handle(req, res);
@@ -122,6 +124,14 @@ router.post(
 	ensureAuthenticatedMiddleware,
 	async (req: Request, res: Response) => {
 		await addToCartController.handle(req, res);
+	},
+);
+
+router.put(
+	"/api/cart",
+	ensureAuthenticatedMiddleware,
+	async (req: Request, res: Response) => {
+		await updateCartController.handle(req, res);
 	},
 );
 

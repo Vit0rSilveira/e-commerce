@@ -30,6 +30,20 @@ class CartRepository implements ICartRepository {
 			},
 		});
 	}
+
+	async update(cart: any): Promise<any> {
+		return db.cart.update({
+			where: {
+				user_id_product_id: {
+					user_id: cart.user_id,
+					product_id: cart.product_id,
+				},
+			},
+			data: {
+				quantity: cart.quantity,
+			},
+		});
+	}
 }
 
 export { CartRepository };
