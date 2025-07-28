@@ -17,8 +17,6 @@ class GetCartService {
 	async execute(data: DTO): Promise<any> {
 		const cart = await this.cartRepository.findByUserId(data.id);
 
-		console.log(cart);
-
 		if (!cart) {
 			throw new ApiError(404, "Empty cart");
 		}
