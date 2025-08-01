@@ -1,9 +1,11 @@
+import { Cart } from "../models/CartModel";
+
 interface ICartRepository {
-	findByUserIdAndProductId(userId: string, productId: string): Promise<any>;
-	findByUserId(userId: string): Promise<any>;
-	create(cart: any): Promise<any>;
-	update(cart: any): Promise<any>;
-	remove(cart: any): Promise<any>;
+	findByUserIdAndProductId(userId: string, productId: string): Promise<Cart | null>;
+	findByUserId(userId: string): Promise<Cart[] | null>;
+	create(cart: any): Promise<Cart>;
+	update(cart: Cart): Promise<Cart>;
+	remove(cart: Cart): Promise<Cart>;
 }
 
 export type { ICartRepository };

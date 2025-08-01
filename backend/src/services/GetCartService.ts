@@ -39,7 +39,7 @@ class GetCartService {
 				name: product.title,
 				price: product.price,
 				quantity: i.quantity,
-				fullPrice: product.price * i.quantity,
+				fullPrice: (Number)(product.price) * i.quantity,
 			});
 		}
 

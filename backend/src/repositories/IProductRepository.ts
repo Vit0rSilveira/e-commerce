@@ -1,10 +1,12 @@
+import { Product } from "../models/ProductModel";
+
 interface IProductRepository {
-	findById(id: string): Promise<any>;
-	findAll(): Promise<any>;
-	search(data: any): Promise<any>;
-	create(user: any): Promise<any>;
-	update(user: any): Promise<any>;
-	delete(user: any): Promise<any>;
+	findById(id: string): Promise<Product | null>;
+	findAll(): Promise<Product[] | null>;
+	search(data: any): Promise<Product[] | null>;
+	create(user: any): Promise<Product>;
+	update(user: Product): Promise<Product>;
+	delete(user: Product): Promise<Product>;
 }
 
 export type { IProductRepository };

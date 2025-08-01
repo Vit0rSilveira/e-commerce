@@ -14,7 +14,7 @@ class UpdateUserService {
 	async execute(data: DTO): Promise<any> {
 		const user = await this.userRepository.findById(data.id);
 
-		if (!user) {
+		if (!user || user.deleted_at) {
 			throw new ApiError(404, "User not found");
 		}
 

@@ -1,11 +1,12 @@
 import { db } from "../database";
+import { Cart } from "../models/CartModel";
 import type { ICartRepository } from "./ICartRepository";
 
 class CartRepository implements ICartRepository {
 	async findByUserIdAndProductId(
 		userId: string,
 		productId: string,
-	): Promise<any> {
+	): Promise<Cart | null> {
 		return db.cart.findFirst({
 			where: {
 				user_id: userId,
@@ -14,7 +15,7 @@ class CartRepository implements ICartRepository {
 		});
 	}
 
-	async findByUserId(userId: string): Promise<any> {
+	async findByUserId(userId: string): Promise<Cart[] | null> {
 		return db.cart.findMany({
 			where: {
 				user_id: userId,
@@ -22,7 +23,7 @@ class CartRepository implements ICartRepository {
 		});
 	}
 
-	async create(cart: any): Promise<any> {
+	async create(cart: any): Promise<Cart> {
 		return db.cart.create({
 			data: {
 				...cart,
@@ -31,7 +32,7 @@ class CartRepository implements ICartRepository {
 		});
 	}
 
-	async update(cart: any): Promise<any> {
+	async update(cart: Cart): Promise<Cart> {
 		return db.cart.update({
 			where: {
 				user_id_product_id: {
@@ -45,7 +46,7 @@ class CartRepository implements ICartRepository {
 		});
 	}
 
-	async remove(cart: any): Promise<any> {
+	async remove(cart: Cart): Promise<Cart> {
 		return db.cart.delete({
 			where: {
 				user_id_product_id: {

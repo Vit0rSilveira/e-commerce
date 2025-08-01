@@ -1,8 +1,9 @@
 import { db } from "../database";
+import { Product } from "../models/ProductModel";
 import type { IProductRepository } from "./IProductRepository";
 
 class ProductRepository implements IProductRepository {
-	async findById(id: string): Promise<any> {
+	async findById(id: string): Promise<Product | null> {
 		return db.product.findFirst({
 			where: {
 				id: id,
@@ -10,11 +11,11 @@ class ProductRepository implements IProductRepository {
 		});
 	}
 
-	async findAll(): Promise<any> {
+	async findAll(): Promise<Product[] | null> {
 		return db.product.findMany();
 	}
 
-	async search(data: any): Promise<any> {
+	async search(data: any): Promise<Product[] | null> {
 		return db.product.findMany({
 			where: {
 				AND: [
@@ -52,7 +53,7 @@ class ProductRepository implements IProductRepository {
 		});
 	}
 
-	async create(product: any): Promise<any> {
+	async create(product: any): Promise<Product> {
 		return db.product.create({
 			data: {
 				...product,
@@ -65,7 +66,7 @@ class ProductRepository implements IProductRepository {
 		});
 	}
 
-	async update(product: any): Promise<any> {
+	async update(product: Product): Promise<Product> {
 		return db.product.update({
 			where: {
 				id: product.id,

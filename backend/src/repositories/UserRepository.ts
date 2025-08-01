@@ -1,8 +1,9 @@
 import { db } from "../database";
+import { User } from "../models/UserModel";
 import type { IUserRepository } from "./IUserRepository";
 
 class UserRepository implements IUserRepository {
-	async findByEmail(email: string): Promise<any> {
+	async findByEmail(email: string): Promise<User | null> {
 		return db.user.findFirst({
 			where: {
 				email: email,
@@ -10,7 +11,7 @@ class UserRepository implements IUserRepository {
 		});
 	}
 
-	async findById(id: string): Promise<any> {
+	async findById(id: string): Promise<User | null> {
 		return db.user.findFirst({
 			where: {
 				id: id,
@@ -18,7 +19,7 @@ class UserRepository implements IUserRepository {
 		});
 	}
 
-	async create(user: any): Promise<any> {
+	async create(user: any): Promise<User> {
 		return db.user.create({
 			data: {
 				...user,
@@ -28,7 +29,7 @@ class UserRepository implements IUserRepository {
 		});
 	}
 
-	async update(user: any): Promise<any> {
+	async update(user: User): Promise<User> {
 		return db.user.update({
 			where: {
 				id: user.id,
@@ -40,7 +41,7 @@ class UserRepository implements IUserRepository {
 		});
 	}
 
-	async delete(user: any): Promise<any> {
+	async delete(user: User): Promise<User> {
 		return db.user.update({
 			where: {
 				id: user.id,

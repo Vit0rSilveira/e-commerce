@@ -20,13 +20,13 @@ class UpdateProductService {
 	async execute(data: DTO): Promise<any> {
 		const product = await this.productRepository.findById(data.id);
 
-		if (!product) {
+		if (!product || product.deleted_at) {
 			throw new ApiError(404, "Product not found");
 		}
 
 		for (const key of Object.keys(data)) {
 			if (data[key as keyof DTO] && key !== "id") {
-				product[key] = data[key as keyof DTO];
+				(product as any)[key] = data[key as keyof DTO];
 			}
 		}
 

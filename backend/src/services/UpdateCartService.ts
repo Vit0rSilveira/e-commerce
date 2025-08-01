@@ -9,7 +9,7 @@ import { UserRepository } from "../repositories/UserRepository";
 class DTO {
 	id: string;
 	product_id: string;
-	quantity: string;
+	quantity: number;
 }
 
 class UpdateCartService {
