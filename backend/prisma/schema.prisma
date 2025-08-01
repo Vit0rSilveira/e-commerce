@@ -7,14 +7,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
   id         String   @id @default(uuid())
   name       String
   email      String   @unique
-  is_admin   Boolean
+  role       Role     @default(USER)
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  deleted_at DateTime?
 
   carts      Cart[]
 }
@@ -25,10 +31,11 @@ model Product {
   title          String
   description    String
   specifications String[]
-  price          Int
+  price          Decimal  @db.Decimal(10, 2)
   stock          Int 
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
+  deleted_at     DateTime?
 
   carts          Cart[]
 }

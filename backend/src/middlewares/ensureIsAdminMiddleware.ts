@@ -17,7 +17,7 @@ async function ensureIsAdminMiddleware(
 
 	if (!user) throw new ApiError(401, "Unauthorized");
 
-	if (!user.is_admin) throw new ApiError(401, "Unauthorized");
+	if (user.role !== "ADMIN") throw new ApiError(401, "Unauthorized");
 
 	return next();
 }

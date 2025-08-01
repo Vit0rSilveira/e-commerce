@@ -14,7 +14,7 @@ class ReadProductService {
 	async execute(data: DTO): Promise<any> {
 		const product = await this.productRepository.findById(data.id);
 
-		if (!product) {
+		if (!product || product.deleted_at) {
 			throw new ApiError(404, "Product not found");
 		}
 

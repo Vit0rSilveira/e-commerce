@@ -12,15 +12,15 @@ class ReadUserService {
 	async execute(data: DTO): Promise<any> {
 		const user = await this.userRepository.findById(data.id);
 
-		if (!user) {
-			throw new ApiError(401, "Unauthorized");
+		if (!user || user.deleted_at) {
+			throw new ApiError(404, "User not found");
 		}
 
 		return {
 			id: user.id,
 			email: user.email,
 			name: user.name,
-			is_admin: user.is_admin,
+			is_admin: user.role === "ADMIN",
 			created_at: user.created_at,
 			updated_at: user.updated_at,
 		};

@@ -19,11 +19,25 @@ class CreateUserService {
 	async execute(data: DTO): Promise<any> {
 		const emailAlreadyInUse = await this.userRepository.findByEmail(data.email);
 
-		if (emailAlreadyInUse) {
-			throw new ApiError(400, "Email already in use");
-		}
-
 		const hashedPassword = await this.encryption.encrypt(data.password);
+
+		if (emailAlreadyInUse) {
+			if (!emailAlreadyInUse.deleted_at) {
+				throw new ApiError(400, "Email already in use");
+			}
+
+			const user = emailAlreadyInUse;
+
+			user.name = data.name;
+			user.email = data.email;
+			user.password = hashedPassword;
+
+			await this.userRepository.update(user);
+
+			return {
+				id: user.id,
+			};
+		}
 
 		const user = await this.userRepository.create({
 			name: data.name,

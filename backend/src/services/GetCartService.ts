@@ -30,6 +30,10 @@ class GetCartService {
 				throw new ApiError(404, "Product not found");
 			}
 
+			if (product.deleted_at) {
+				continue;
+			}
+
 			productsInCart.push({
 				id: product.id,
 				name: product.title,

@@ -78,9 +78,12 @@ class ProductRepository implements IProductRepository {
 	}
 
 	async delete(product: any): Promise<any> {
-		return db.product.delete({
+		return db.product.update({
 			where: {
 				id: product.id,
+			},
+			data: {
+				deleted_at: new Date(),
 			},
 		});
 	}

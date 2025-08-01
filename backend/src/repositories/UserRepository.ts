@@ -22,7 +22,6 @@ class UserRepository implements IUserRepository {
 		return db.user.create({
 			data: {
 				...user,
-				is_admin: false,
 				created_at: new Date(),
 				updated_at: new Date(),
 			},
@@ -42,9 +41,12 @@ class UserRepository implements IUserRepository {
 	}
 
 	async delete(user: any): Promise<any> {
-		return db.user.delete({
+		return db.user.update({
 			where: {
 				id: user.id,
+			},
+			data: {
+				deleted_at: new Date(),
 			},
 		});
 	}

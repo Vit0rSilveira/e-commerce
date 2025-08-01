@@ -22,13 +22,13 @@ class AddToCartService {
 	async execute(data: DTO): Promise<any> {
 		const user = await this.userRepository.findById(data.id);
 
-		if (!user) {
+		if (!user || user.deleted_at) {
 			throw new ApiError(401, "Unauthorized");
 		}
 
 		const product = await this.productRepository.findById(data.product_id);
 
-		if (!product) {
+		if (!product || product.deleted_at) {
 			throw new ApiError(404, "Product not found");
 		}
 
